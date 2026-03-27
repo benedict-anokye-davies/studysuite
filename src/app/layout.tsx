@@ -11,7 +11,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "StudySuite",
-  description: "Find your next opportunity",
+  description: "Track applications for jobs, internships, and spring weeks across UK companies",
 };
 
 export default function RootLayout({

@@ -2,15 +2,7 @@
 
 import { OpportunityCard } from '@/components/opportunity-card';
 import { feedOpportunities } from '@/lib/mock-data';
-import { motion } from 'framer-motion';
-import { Sparkles, TrendingUp, Clock } from 'lucide-react';
-
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.06 },
-  },
-};
+import { Inbox } from 'lucide-react';
 
 export default function FeedPage() {
   const openOpportunities = feedOpportunities.filter((o) => o.is_open);
@@ -27,30 +19,42 @@ export default function FeedPage() {
         new Date(a.deadline!).getTime() - new Date(b.deadline!).getTime()
     );
 
+  const recommended = openOpportunities.filter(
+    (o) => !closingSoon.find((c) => c.id === o.id)
+  );
+
+  if (openOpportunities.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-32 text-center">
+        <Inbox className="h-10 w-10 text-zinc-700" />
+        <h2 className="mt-4 text-lg font-medium text-zinc-300">
+          No opportunities yet
+        </h2>
+        <p className="mt-1 max-w-xs text-sm text-zinc-600">
+          New opportunities will appear here as they are added. Check back soon.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-indigo-400" />
-          <h2 className="text-2xl font-bold tracking-tight text-zinc-100">
-            For You
-          </h2>
-        </div>
-        <p className="mt-1 text-sm text-zinc-500">
-          Opportunities matched to your profile and interests
+        <h2 className="text-lg font-medium text-zinc-200">Feed</h2>
+        <p className="mt-0.5 text-sm text-zinc-600">
+          Opportunities matched to your profile
         </p>
       </div>
 
-      {/* Closing Soon Section */}
+      {/* Closing Soon */}
       {closingSoon.length > 0 && (
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-red-400" />
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-red-400">
-              Closing Soon
+            <h3 className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+              Closing soon
             </h3>
-            <span className="flex h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-red-500/60" />
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {closingSoon.map((opportunity) => (
@@ -63,28 +67,22 @@ export default function FeedPage() {
         </div>
       )}
 
-      {/* Main Feed */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <TrendingUp className="h-4 w-4 text-zinc-500" />
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+      {/* Recommended */}
+      {recommended.length > 0 && (
+        <div className="space-y-3">
+          <h3 className="text-xs font-medium uppercase tracking-wider text-zinc-500">
             Recommended
           </h3>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {recommended.map((opportunity) => (
+              <OpportunityCard
+                key={opportunity.id}
+                opportunity={opportunity}
+              />
+            ))}
+          </div>
         </div>
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {openOpportunities.map((opportunity) => (
-            <OpportunityCard
-              key={opportunity.id}
-              opportunity={opportunity}
-            />
-          ))}
-        </motion.div>
-      </div>
+      )}
     </div>
   );
 }

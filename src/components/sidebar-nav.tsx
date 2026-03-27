@@ -2,14 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  Home,
-  Compass,
-  Kanban,
-  Calendar,
-  Settings,
-  GraduationCap,
-} from 'lucide-react';
+import { Home, Compass, Kanban, Calendar, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -29,19 +22,14 @@ export function SidebarNav() {
   return (
     <nav className="flex h-full flex-col px-3 py-4">
       {/* Logo */}
-      <Link href="/feed" className="mb-8 flex items-center gap-2.5 px-3 py-1">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 shadow-sm shadow-indigo-500/25">
-          <GraduationCap className="h-4 w-4 text-white" />
-        </div>
-        <div>
-          <h1 className="text-base font-bold tracking-tight text-zinc-100">
-            StudySuite
-          </h1>
-        </div>
+      <Link href="/feed" className="mb-8 flex items-center px-3 py-1">
+        <h1 className="text-[15px] font-semibold tracking-tight text-zinc-200">
+          StudySuite
+        </h1>
       </Link>
 
       {/* Main navigation */}
-      <div className="space-y-1">
+      <div className="space-y-0.5">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -49,20 +37,18 @@ export function SidebarNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150',
+                'group flex items-center gap-3 rounded-md px-3 py-2 text-[13px] font-medium transition-colors duration-100',
                 isActive
-                  ? 'bg-indigo-500/10 text-indigo-400'
-                  : 'text-zinc-500 hover:bg-white/[0.04] hover:text-zinc-300'
+                  ? 'bg-white/[0.06] text-zinc-100'
+                  : 'text-zinc-500 hover:bg-white/[0.03] hover:text-zinc-300'
               )}
             >
-              {/* Active indicator bar */}
-              {isActive && (
-                <span className="absolute -left-3 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-indigo-500" />
-              )}
               <item.icon
                 className={cn(
-                  'h-[18px] w-[18px] transition-colors',
-                  isActive ? 'text-indigo-400' : 'text-zinc-600 group-hover:text-zinc-400'
+                  'h-4 w-4',
+                  isActive
+                    ? 'text-zinc-300'
+                    : 'text-zinc-600 group-hover:text-zinc-400'
                 )}
               />
               {item.label}
@@ -71,11 +57,11 @@ export function SidebarNav() {
         })}
       </div>
 
-      {/* Separator */}
-      <div className="mx-3 my-4 h-px bg-white/[0.04]" />
+      {/* Spacer */}
+      <div className="flex-1" />
 
       {/* Bottom items */}
-      <div className="space-y-1">
+      <div className="space-y-0.5">
         {bottomItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -83,38 +69,24 @@ export function SidebarNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150',
+                'group flex items-center gap-3 rounded-md px-3 py-2 text-[13px] font-medium transition-colors duration-100',
                 isActive
-                  ? 'bg-indigo-500/10 text-indigo-400'
-                  : 'text-zinc-500 hover:bg-white/[0.04] hover:text-zinc-300'
+                  ? 'bg-white/[0.06] text-zinc-100'
+                  : 'text-zinc-500 hover:bg-white/[0.03] hover:text-zinc-300'
               )}
             >
-              {isActive && (
-                <span className="absolute -left-3 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-indigo-500" />
-              )}
               <item.icon
                 className={cn(
-                  'h-[18px] w-[18px] transition-colors',
-                  isActive ? 'text-indigo-400' : 'text-zinc-600 group-hover:text-zinc-400'
+                  'h-4 w-4',
+                  isActive
+                    ? 'text-zinc-300'
+                    : 'text-zinc-600 group-hover:text-zinc-400'
                 )}
               />
               {item.label}
             </Link>
           );
         })}
-      </div>
-
-      {/* User avatar */}
-      <div className="mt-auto">
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/[0.04] cursor-pointer">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-xs font-bold text-white">
-            BD
-          </div>
-          <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-zinc-300">Ben</p>
-            <p className="truncate text-xs text-zinc-600">CS Year 1</p>
-          </div>
-        </div>
       </div>
     </nav>
   );

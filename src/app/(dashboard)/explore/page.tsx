@@ -5,16 +5,8 @@ import { OpportunityCard } from '@/components/opportunity-card';
 import { FilterBar } from '@/components/filter-bar';
 import { exploreOpportunities } from '@/lib/mock-data';
 import { useFilterStore } from '@/stores/filter-store';
-import { motion } from 'framer-motion';
-import { Compass } from 'lucide-react';
+import { Search } from 'lucide-react';
 import type { OpportunityType, Industry } from '@/types';
-
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.04 },
-  },
-};
 
 export default function ExplorePage() {
   const { types, industries, location, yearGroup, searchQuery, showOpen } =
@@ -59,13 +51,8 @@ export default function ExplorePage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2">
-          <Compass className="h-5 w-5 text-indigo-400" />
-          <h2 className="text-2xl font-bold tracking-tight text-zinc-100">
-            Explore
-          </h2>
-        </div>
-        <p className="mt-1 text-sm text-zinc-500">
+        <h2 className="text-lg font-medium text-zinc-200">Explore</h2>
+        <p className="mt-0.5 text-sm text-zinc-600">
           Browse all opportunities across industries and roles
         </p>
       </div>
@@ -74,39 +61,31 @@ export default function ExplorePage() {
       <FilterBar />
 
       {/* Results count */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-zinc-500">
-          <span className="font-semibold text-zinc-300">{filtered.length}</span>{' '}
-          {filtered.length === 1 ? 'opportunity' : 'opportunities'} found
+      <div>
+        <p className="text-xs text-zinc-600">
+          <span className="text-zinc-400">{filtered.length}</span>{' '}
+          {filtered.length === 1 ? 'result' : 'results'}
         </p>
       </div>
 
       {/* Grid */}
       {filtered.length > 0 ? (
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((opportunity) => (
             <OpportunityCard
               key={opportunity.id}
               opportunity={opportunity}
             />
           ))}
-        </motion.div>
+        </div>
       ) : (
         <div className="flex flex-col items-center gap-3 py-20 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/[0.04]">
-            <Compass className="h-6 w-6 text-zinc-600" />
-          </div>
-          <h3 className="text-lg font-semibold text-zinc-300">
-            No opportunities match
+          <Search className="h-8 w-8 text-zinc-700" />
+          <h3 className="text-sm font-medium text-zinc-300">
+            No results
           </h3>
-          <p className="max-w-xs text-sm text-zinc-500">
-            Try adjusting your filters or search terms to find what you are
-            looking for.
+          <p className="max-w-xs text-xs text-zinc-600">
+            Try adjusting your filters or search terms.
           </p>
         </div>
       )}
