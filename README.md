@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StudySuite
+
+A platform for UK university students to discover, track, and manage career opportunities — internships, spring weeks, grad schemes, scholarships, and more.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router, TypeScript)
+- **UI:** Tailwind CSS v4, shadcn/ui, Framer Motion
+- **Auth & Database:** Supabase (Auth + Postgres)
+- **ORM:** Drizzle ORM
+- **State:** Zustand (client), React Query (server)
+- **Icons:** Lucide React
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment variables
+# Copy .env.local.example to .env.local and fill in your Supabase credentials
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/             # Next.js App Router pages
+│   ├── (auth)/      # Login, onboarding
+│   ├── (dashboard)/ # Feed, explore, applications, calendar, settings
+│   └── company/     # Company profiles
+├── components/      # React components
+│   └── ui/          # shadcn/ui components
+├── hooks/           # Custom React hooks
+├── lib/             # Utilities, Supabase clients, constants
+├── stores/          # Zustand state stores
+└── types/           # TypeScript type definitions
+```
 
-## Learn More
+## Features (Planned)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Personalised opportunity feed based on preferences
+- Filter by type, industry, location, year group
+- Application tracking kanban board
+- Deadline calendar
+- Company profiles
+- Onboarding questionnaire for personalisation
